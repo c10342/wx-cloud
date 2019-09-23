@@ -1,0 +1,42 @@
+
+.cover-box{
+  position: relative;
+  height: 320rpx;
+  width: 100%;
+}
+.cover-img{
+  position: absolute;
+  width: 100%;
+  height: 320rpx;
+  opacity: 0.4;
+  filter: blur(40rpx);
+}
+
+.cover-bg{
+  position: absolute;
+  z-index: -1;
+  background-color: #333;
+  height: 320rpx;
+  width: 100%;
+}
+
+.info-box{
+  box-sizing: border-box;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 20rpx;
+}
+
+.info-img{
+  width: 300rpx;
+  height: 250rpx;
+  border-radius: 5rpx;
+}
+
+.info-name{
+  color: #fff;
+  font-size: 32rpx;
+  margin-left: 20rpx;
+}

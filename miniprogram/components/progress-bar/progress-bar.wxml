@@ -1,0 +1,22 @@
+<view class="progress-bar">
+  <text class="time time-left">{{showTime.currentTime}}</text>
+  <view class="progress-line">
+    <movable-area class='movable-area'  bindtap="onClick">
+      <movable-view 
+      direction='horizontal'
+      damping='1000'
+      x='{{moveX}}'
+      bindchange='onChange'
+      bindtouchend="onTouchEnd"
+      class="movable-view"></movable-view>
+    </movable-area>
+    <progress
+     percent='{{percent}}'
+     activeColor='#fff'
+     backgroundColor='#969696'
+     stroke-width='4'
+     class="progress"
+     ></progress>
+  </view>
+  <text class="time time-right">{{showTime.totalTime}}</text>
+</view>

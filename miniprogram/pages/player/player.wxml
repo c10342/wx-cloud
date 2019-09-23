@@ -1,0 +1,17 @@
+<view class='player-container' style="background: url({{picUrl}}) no-repeat center/cover;"></view>
+<view class="player-mask"></view>
+
+
+<view class="player-disc {{isPlaying?'playing':''}}">
+  <image class="player-img rotation {{isPlaying?'':'rotation-stop'}}" src="{{picUrl}}"></image>
+</view>
+
+<view class="progress-bar">
+  <l-progress-bar bind:musicEnd='onNext' />
+</view>
+
+<view class="control">
+  <text class="iconfont icon-shangyishoushangyige" bindtap="onPrev"></text>
+  <text class="iconfont {{isPlaying?'icon-zanting1':'icon-bofang1'}}" bindtap="togglePlaying"></text>
+  <text class="iconfont icon-xiayigexiayishou" bindtap="onNext"></text>
+</view>

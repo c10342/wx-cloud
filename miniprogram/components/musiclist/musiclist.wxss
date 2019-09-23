@@ -1,0 +1,45 @@
+.musiclist-container{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 100rpx;
+  padding: 0 20rpx;
+}
+
+.musiclist-box{
+  flex: 1;
+  /* 不设置width: 0，flex: 1会失效 */
+  width: 0;
+}
+
+.musiclist-index{
+  line-height: 100rpx;
+  width: 70rpx;
+  color: #ccc;
+  font-size: 30rpx;
+}
+
+.musiclist-moviename{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 30rpx;
+  white-space: nowrap;
+}
+
+.musiclist-name{
+  color: #ddd;
+  font-size: 27rpx;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.playing{
+  color: #d43c43;
+}
+
+.playing view{
+  color: #d43c43;  
+}

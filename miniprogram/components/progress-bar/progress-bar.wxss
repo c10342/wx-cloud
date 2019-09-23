@@ -1,0 +1,51 @@
+.progress-bar {
+  display: flex;
+  align-items: center;
+}
+
+.progress-line {
+  flex: 1;
+  height: 8rpx;
+  position: relative;
+}
+
+.movable-area {
+  width: 100%;
+  height: 20rpx;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+}
+
+.movable-view {
+  width: 28rpx;
+  height: 28rpx;
+  background-color: #fff;
+  border-radius: 50%;
+  position: absolute;
+  top: -4rpx;
+  left: 0;
+}
+
+.progress{
+   width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  z-index: -1;
+}
+
+.time {
+  color: #fff;
+  font-size: 30rpx;
+}
+
+.time-left{
+  padding-right: 15rpx;
+}
+
+.time-right{
+  padding-left: 15rpx;
+}
