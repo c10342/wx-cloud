@@ -50,5 +50,14 @@ exports.main = async (event, context) => {
     ctx.body = result
   })
 
+  // 获取歌词
+  app.router('lyric', async (ctx) => {
+    const result = await rp(`${BASE_URL}/lyric?id=${event.musicId}`)
+      .then(res => {
+        return JSON.parse(res)
+      })
+    ctx.body = result
+  })
+
   return app.serve()
 }

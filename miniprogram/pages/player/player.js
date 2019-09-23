@@ -10,7 +10,9 @@ Page({
    */
   data: {
     picUrl: '',
-    isPlaying: false
+    isPlaying: false,
+    lyric:'',
+    isShowLyric:false
   },
 
   /**
@@ -107,6 +109,7 @@ Page({
       this.setData({
         isPlaying: true
       })
+      this.getLyric(musicId)
     }).finally(() => {
       wx.hideLoading()
     })
@@ -141,5 +144,23 @@ Page({
       currentIndex++
     }
     this._loadMusicDetail()
+  },
+  getLyric(musicId){
+    wx.cloud.callFunction({
+      name:'music',
+      data:{
+        $url:'lyric',
+        musicId
+      }
+    }).then(res=>{
+      this.setData({
+        lyric: res.result.lrc.lyric
+      })
+    })
+  },
+  toggleLyric(){
+    this.setData({
+      isShowLyric:!this.data.isShowLyric
+    })
   }
 })
