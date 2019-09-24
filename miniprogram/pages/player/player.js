@@ -24,20 +24,11 @@ Page({
     musiclist = wx.getStorageSync('musiclist')
     if (options.musicId == app.getPlayingMusicId()) {
       // 同一首歌曲就还原上一次状态
-      const picUrl = wx.getStorageSync('picUrl')
-      const lyric = wx.getStorageSync('lyric')
-      const isShowLyric = wx.getStorageSync('isShowLyric')
-      currentIndex = wx.getStorageSync('currentIndex')
-      this.setData({
-        picUrl: picUrl,
-        isPlaying: !backgroundAudioManager.paused,
-        lyric: lyric,
-        isShowLyric: isShowLyric,
-        isSame: true
-      })
+      this.initState()
       return
     }
     currentIndex = options.index
+    // 加载音乐详情
     this._loadMusicDetail()
   },
 
@@ -97,8 +88,10 @@ Page({
   _loadMusicDetail() {
     // 切换歌曲前先暂停
     backgroundAudioManager.stop()
+    // 获取要播放的哪一首歌曲
     let music = musiclist[currentIndex]
     const musicId = music.id
+    // 设置标题
     wx.setNavigationBarTitle({
       title: music.name,
     })
@@ -107,6 +100,7 @@ Page({
       isPlaying: false,
       lyric: ''
     })
+    // 把当前播放的音乐id保存到全局
     app.setPlayingMusicId(musicId)
     wx.showLoading({
       title: '歌曲加载中',
@@ -139,9 +133,10 @@ Page({
       this.setData({
         isPlaying: true
       })
-      console.log()
+      // 保存图片地址和音乐索引到本地
       wx.setStorageSync('picUrl', coverImgUrl)
       wx.setStorageSync('currentIndex', currentIndex)
+      // 获取歌词
       this.getLyric(musicId)
     }).catch(err => {
       wx.showToast({
@@ -191,10 +186,12 @@ Page({
         musicId
       }
     }).then(res => {
+      // 可能会没有歌词的情况
       let lrc = res.result.lrc.lyric ? res.result.lrc.lyric : ''
       this.setData({
         lyric: lrc
       })
+      // 保存歌词到本地
       wx.setStorageSync('lyric', lrc)
     }).catch(err => {
       this.setData({
@@ -223,6 +220,20 @@ Page({
   musicPlay() {
     this.setData({
       isPlaying: true
+    })
+  },
+  // 初始化状态
+  initState() {
+    currentIndex = wx.getStorageSync('currentIndex')
+    const picUrl = wx.getStorageSync('picUrl')
+    const lyric = wx.getStorageSync('lyric')
+    const isShowLyric = wx.getStorageSync('isShowLyric')
+    this.setData({
+      picUrl: picUrl,
+      isPlaying: !backgroundAudioManager.paused,
+      lyric: lyric,
+      isShowLyric: isShowLyric,
+      isSame: true
     })
   }
 })

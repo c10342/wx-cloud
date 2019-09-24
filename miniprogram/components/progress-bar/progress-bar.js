@@ -17,6 +17,7 @@ Component({
    * 组件的属性列表
    */
   properties: {
+    // 是否为同一首歌
     isSame: Boolean
   },
 
@@ -38,8 +39,10 @@ Component({
       if (this.properties.isSame) {
         this.initPrevState()
       } else {
+        // 不是同一首歌重新获取进度条的宽度
         this._getMoveableDis()
       }
+      // 绑定背景音乐管理器事件
       this.bindBGMEvent()
     },
     detached() {
@@ -71,8 +74,11 @@ Component({
       }
     },
     onTouchEnd() {
+      // 移动的距离
       const moveX = this.data.moveX
+      // 进度条百分比 0 - 100
       const percent = moveX / (movableAreaWidth - movableViewWidth) * 100
+      // 当前播放时间
       const currentTime = percent * duration / 100
       const currentFmt = this._dataFormat(currentTime)
       this.setData({
@@ -80,6 +86,7 @@ Component({
         percent,
         ['showTime.currentTime']: `${currentFmt.min}:${currentFmt.sec}`
       })
+      // 跳转到指定时间
       backgroundAudioManager.seek(currentTime)
       isMoving = false
     },
@@ -147,6 +154,7 @@ Component({
         })
       })
     },
+    // 设置总时长
     _setTime() {
       duration = backgroundAudioManager.duration
       const durationFmt = this._dataFormat(duration)
@@ -165,8 +173,8 @@ Component({
     _parse0(num) {
       return num < 10 ? '0' + num : num
     },
+    // 初始化状态
     initPrevState() {
-      // 获取总时长
       movableViewWidth = wx.getStorageSync('movableViewWidth')
       movableAreaWidth = wx.getStorageSync('movableAreaWidth')
       movableAreaOffsetLeft = wx.getStorageSync('movableAreaOffsetLeft')

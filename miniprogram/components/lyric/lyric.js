@@ -1,4 +1,5 @@
 // components/lyric/lyric.js
+// 每条歌词的高度
 let lyricHeight = 0
 const backgroundAudioManager = wx.getBackgroundAudioManager()
 Component({
@@ -6,11 +7,14 @@ Component({
    * 组件的属性列表
    */
   properties: {
+    // 是否显示歌词
     isShowLyric: {
       type: Boolean,
       value: false
     },
+    // 歌词
     lyric: String,
+    // 是否为同一首歌
     isSame: Boolean
   },
 
@@ -25,9 +29,10 @@ Component({
           highLightIndex: -1,
         })
       } else {
-        console.log(newVal)
+        // 解析歌词
         this._parseLyric(newVal)
-        if (this.properties.isSame) {
+        if (this.properties.isSame) {  //同一首歌
+          // 还原状态
           this.initPrevState()
         }
       }
@@ -37,6 +42,7 @@ Component({
    * 组件的初始数据
    */
   data: {
+    // 歌词数组，每个时间段对应一条歌词
     lyricList: [],
     // 当前第几个歌词高亮
     highLightIndex: -1,
@@ -57,6 +63,7 @@ Component({
       })
     },
     detached() {
+      // 组件销毁是保存歌词高度
       wx.setStorageSync('lyricHeight', lyricHeight)
     }
   },
@@ -65,6 +72,7 @@ Component({
    * 组件的方法列表
    */
   methods: {
+    // 解析歌词
     _parseLyric(lyric) {
       const lryicArr = lyric.split('\n')
       let _lyricList = []
@@ -74,6 +82,7 @@ Component({
         if (time) {
           // 提取歌词
           const lrc = eleme.split(time[0])[1]
+          // 提取时间,分，秒，毫秒 [00:00:00]
           const timeReg = time[0].match(/(\d{2,}):(\d{2})(?:.(\d{2,3}))?/)
           // 时间转化成s
           const time2Seconds = parseInt(timeReg[1]) * 60 + parseInt(timeReg[2]) + parseInt(timeReg[3]) / 1000
@@ -87,16 +96,19 @@ Component({
         lyricList: _lyricList
       })
     },
+    // 更新高亮的歌词和滚动的距离
     update(currentTime) {
       const lyricList = this.data.lyricList
-      // 歌曲后面没歌词
+      // 歌曲最后面的时间没歌词
       if (currentTime > lyricList[lyricList.length - 1].time) {
+        // 不高亮歌词，歌词滚动到最底部
         this.setData({
           highLightIndex: - 1,
           scrollTop: lyricList.length * lyricHeight
         })
         return
       }
+      // 遍历歌词
       for (let i = 0, len = lyricList.length; i < len; i++) {
         if (currentTime <= lyricList[i].time) {
           this.setData({
@@ -107,9 +119,12 @@ Component({
         }
       }
     },
+    // 初始化状态
     initPrevState() {
       lyricHeight = wx.getStorageSync('lyricHeight')
+      // 获取当前播放的时间
       const currentTime = backgroundAudioManager.currentTime
+      // 更新歌词
       this.update(currentTime)
     }
   },
