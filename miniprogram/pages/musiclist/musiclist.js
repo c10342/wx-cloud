@@ -1,12 +1,12 @@
-// pages/musiclist/musiclist.js
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    musiclist:[],
-    listInfo:{}
+    musiclist: [],
+    listInfo: {}
   },
 
   /**
@@ -65,32 +65,37 @@ Page({
 
   },
 
-  _getMusiclist(playlistId){
+  _getMusiclist(playlistId) {
     wx.showLoading({
       title: '加载中',
     })
     wx.cloud.callFunction({
-      name:'music',
-      data:{
+      name: 'music',
+      data: {
         playlistId,
-        $url:'musiclist'
+        $url: 'musiclist'
       }
-    }).then(res=>{
+    }).then(res => {
       const r = res.result.playlist
       this.setData({
         musiclist: r.tracks,
-        listInfo:{
+        listInfo: {
           coverImgUrl: r.coverImgUrl,
-          name:r.name
+          name: r.name
         }
       })
       this._setMusiclist()
-    }).finally(()=>{
+    }).catch(err => {
+      wx.showToast({
+        title: err.toString(),
+        icon: 'none'
+      })
+    }).finally(() => {
       wx.hideLoading()
     })
   },
 
-  _setMusiclist(){
+  _setMusiclist() {
     wx.setStorageSync('musiclist', this.data.musiclist)
   }
 })

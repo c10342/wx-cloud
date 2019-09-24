@@ -3,6 +3,7 @@ let musiclist = []
 let currentIndex = 0
 // 获取全局唯一的背景音乐播放管理器
 const backgroundAudioManager = wx.getBackgroundAudioManager()
+const app = getApp()
 Page({
 
   /**
@@ -11,8 +12,9 @@ Page({
   data: {
     picUrl: '',
     isPlaying: false,
-    lyric:'',
-    isShowLyric:false
+    lyric: '',
+    isShowLyric: false,
+    isSame: false
   },
 
   /**
@@ -20,6 +22,21 @@ Page({
    */
   onLoad: function (options) {
     musiclist = wx.getStorageSync('musiclist')
+    if (options.musicId == app.getPlayingMusicId()) {
+      // 同一首歌曲就还原上一次状态
+      const picUrl = wx.getStorageSync('picUrl')
+      const lyric = wx.getStorageSync('lyric')
+      const isShowLyric = wx.getStorageSync('isShowLyric')
+      currentIndex = wx.getStorageSync('currentIndex')
+      this.setData({
+        picUrl: picUrl,
+        isPlaying: !backgroundAudioManager.paused,
+        lyric: lyric,
+        isShowLyric: isShowLyric,
+        isSame: true
+      })
+      return
+    }
     currentIndex = options.index
     this._loadMusicDetail()
   },
@@ -49,7 +66,10 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    wx.setStorageSync('currentIndex', currentIndex)
+    wx.setStorageSync('lyric', this.data.lyric)
+    wx.setStorageSync('picUrl', this.data.picUrl)
+    wx.setStorageSync('isShowLyric', this.data.isShowLyric)
   },
 
   /**
@@ -84,8 +104,10 @@ Page({
     })
     this.setData({
       picUrl: music.al.picUrl,
-      isPlaying: false
+      isPlaying: false,
+      lyric: ''
     })
+    app.setPlayingMusicId(musicId)
     wx.showLoading({
       title: '歌曲加载中',
     })
@@ -97,6 +119,14 @@ Page({
       }
     }).then(res => {
       const musicUrl = res.result.data[0].url
+      // musicUrl为空说明没有权限，需要vip
+      if (!musicUrl) {
+        wx.showToast({
+          title: '歌曲无权限',
+          icon: 'none'
+        })
+        return
+      }
       const title = music.name
       const epname = music.al.name
       const coverImgUrl = music.al.picUrl
@@ -109,7 +139,15 @@ Page({
       this.setData({
         isPlaying: true
       })
+      console.log()
+      wx.setStorageSync('picUrl', coverImgUrl)
+      wx.setStorageSync('currentIndex', currentIndex)
       this.getLyric(musicId)
+    }).catch(err => {
+      wx.showToast({
+        title: err.toString(),
+        icon: 'none'
+      })
     }).finally(() => {
       wx.hideLoading()
     })
@@ -145,22 +183,46 @@ Page({
     }
     this._loadMusicDetail()
   },
-  getLyric(musicId){
+  getLyric(musicId) {
     wx.cloud.callFunction({
-      name:'music',
-      data:{
-        $url:'lyric',
+      name: 'music',
+      data: {
+        $url: 'lyric',
         musicId
       }
-    }).then(res=>{
+    }).then(res => {
+      let lrc = res.result.lrc.lyric ? res.result.lrc.lyric : ''
       this.setData({
-        lyric: res.result.lrc.lyric
+        lyric: lrc
       })
+      wx.setStorageSync('lyric', lrc)
+    }).catch(err => {
+      this.setData({
+        lyric: ''
+      })
+      wx.setStorageSync('lyric', '')
     })
   },
-  toggleLyric(){
+  toggleLyric() {
     this.setData({
-      isShowLyric:!this.data.isShowLyric
+      isShowLyric: !this.data.isShowLyric
+    })
+  },
+  onTimeUpdate(event) {
+    if (!event.detail.currentTime) {
+      return
+    }
+    // this.selectComponent('#lyric')  选中组件   返回组件实例
+    this.selectComponent('#lyric').update(event.detail.currentTime)
+  },
+  musicPause() {
+    this.setData({
+      isPlaying: false
+    })
+  },
+  musicPlay() {
+    this.setData({
+      isPlaying: true
     })
   }
 })

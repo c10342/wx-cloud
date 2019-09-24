@@ -1,3 +1,14 @@
-<scroll-view hidden="{{isShowLyric}}">
-13123123123
+<scroll-view 
+hidden="{{isShowLyric}}" 
+class="lyric-scroll" 
+scroll-top='{{scrollTop}}'
+scroll-with-animation='true'
+scroll-y>
+  <view class="lyric-box">
+    <block wx:for='{{lyricList}}' wx:key='item'>
+      <view class="lyric-item {{highLightIndex==index?'lryic-highlight':''}}">
+        {{item.lrc}}
+      </view>
+    </block>
+  </view>
 </scroll-view>

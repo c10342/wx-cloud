@@ -107,6 +107,11 @@ Page({
         playlist: playlist,
         total: res.result.total
       })
+    }).catch(err=>{
+      wx.showToast({
+        title: err.toString(),
+        icon:'none'
+      })
     }).finally(() => {
       wx.stopPullDownRefresh()
       wx.hideLoading()

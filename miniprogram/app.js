@@ -1,4 +1,6 @@
-//app.js
+
+// 获取全局唯一的背景音乐播放管理器
+const backgroundAudioManager = wx.getBackgroundAudioManager()
 App({
   onLaunch: function () {
     
@@ -16,6 +18,14 @@ App({
       })
     }
 
-    this.globalData = {}
+    this.globalData = {
+      playingMusicId:-1
+    }
+  },
+  setPlayingMusicId(musicId){
+    this.globalData.playingMusicId = musicId
+  },
+  getPlayingMusicId() {
+    return this.globalData.playingMusicId
   }
 })

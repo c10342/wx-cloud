@@ -8,14 +8,6 @@
   opacity: 0.5;
 }
 
-/* .player-info{
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  text-align: center;
-} */
 
 .player-mask {
   position: absolute;
@@ -25,6 +17,15 @@
   right: 0;
   background-color: #222;
   z-index: -1;
+}
+
+.player-info{
+  position: absolute;
+  text-align: center;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
 }
 
 .player-disc {

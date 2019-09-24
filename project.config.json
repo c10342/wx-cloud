@@ -58,10 +58,10 @@
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 2,
 					"name": "player",
 					"pathName": "pages/player/player",
-					"query": "musicId= 1366963632&index=0",
+					"query": "musicId=109031&index=2",
 					"scene": null
 				}
 			]
