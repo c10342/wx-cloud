@@ -1,0 +1,7 @@
+.btn{
+  width: 80%;
+  height: 100rpx;
+  background-color: #d43c43;
+  color: #fff;
+  margin-top: 50rpx;
+}

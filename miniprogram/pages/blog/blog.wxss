@@ -1,1 +1,24 @@
-/* miniprogram/pages/blog/blog.wxss */
+.search{
+  height: 100rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0 20rpx;
+}
+
+.publish{
+  height: 50rpx;
+  width: 50rpx;
+  line-height: 50rpx;
+  text-align: center;
+  margin-right: 20rpx;
+}
+
+.publish i {
+  font-size: 40rpx;
+}
+
+.search-box{
+  flex: 1;
+}

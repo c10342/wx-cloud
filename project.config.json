@@ -17,7 +17,8 @@
 			"ignore": [],
 			"disablePlugins": [],
 			"outputPath": ""
-		}
+		},
+		"nodeModules": true
 	},
 	"appid": "wxfd42849555bd7a4d",
 	"projectname": "lin-music",
@@ -42,7 +43,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 2,
+			"current": 3,
 			"list": [
 				{
 					"id": -1,
@@ -52,7 +53,7 @@
 				},
 				{
 					"id": 1,
-					"name": "pages/musiclist/musiclist",
+					"name": "musiclist",
 					"pathName": "pages/musiclist/musiclist",
 					"query": "playlistId= 2921800832",
 					"scene": null
@@ -62,6 +63,13 @@
 					"name": "player",
 					"pathName": "pages/player/player",
 					"query": "musicId=109031&index=2",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "blog",
+					"pathName": "pages/blog/blog",
+					"query": "",
 					"scene": null
 				}
 			]

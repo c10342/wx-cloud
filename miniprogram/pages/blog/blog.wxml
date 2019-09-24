@@ -1,2 +1,12 @@
-<!--miniprogram/pages/blog/blog.wxml-->
-<text>miniprogram/pages/blog/blog.wxml</text>
+<view>
+  <view class="search">
+    <view class="publish" bindtap="onPublish">
+      <i class='iconfont icon-fabu'></i>
+    </view>
+    <view class="search-box">
+      <l-search iconfont='iconfont' icon-sousuo='icon-sousuo' />
+    </view>
+  </view>
+  <l-login modalShow='{{modalShow}}' bind:loginSuccess='loginSuccess' bind:loginFail='loginFail'>
+  </l-login>
+</view>

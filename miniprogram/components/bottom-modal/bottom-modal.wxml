@@ -1,0 +1,8 @@
+<view class="mask"  hidden="{{!modalShow}}">
+<view class="bottom-modal">
+  <view class="close" bindtap="closeModal">
+    <i class='icon-shanchu iconfont'></i>
+  </view>
+  <slot name='content'></slot>
+</view>
+</view>

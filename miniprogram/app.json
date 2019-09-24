@@ -4,7 +4,8 @@
     "pages/blog/blog",
     "pages/profile/profile",
     "pages/musiclist/musiclist",
-    "pages/player/player"
+    "pages/player/player",
+    "pages/edit-blog/edit-blog"
   ],
   "requiredBackgroundModes": [
     "audio"
@@ -13,7 +14,7 @@
     "backgroundColor": "#d43c43",
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#d43c43",
-    "navigationBarTitleText": "小林音乐",
+    "navigationBarTitleText": "音乐",
     "navigationBarTextStyle": "white"
   },
   "tabBar": {

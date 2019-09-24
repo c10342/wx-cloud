@@ -13,31 +13,52 @@ Component({
       value: false
     },
     // 歌词
-    lyric: String,
+    lyric: {
+      type: String,
+      observer:function(newVal) {
+        if (!newVal) {
+          this.setData({
+            lyricList: [{
+              time: 0,
+              lrc: '暂无歌词'
+            }],
+            highLightIndex: -1,
+          })
+        } else {
+          // 解析歌词
+          this._parseLyric(newVal)
+          if (this.properties.isSame) {  //同一首歌
+            // 还原状态
+            this.initPrevState()
+          }
+        }
+      }
+    },
     // 是否为同一首歌
     isSame: Boolean
   },
 
-  observers: {
-    lyric(newVal) {
-      if (!newVal) {
-        this.setData({
-          lyricList: [{
-            time: 0,
-            lrc: '暂无歌词'
-          }],
-          highLightIndex: -1,
-        })
-      } else {
-        // 解析歌词
-        this._parseLyric(newVal)
-        if (this.properties.isSame) {  //同一首歌
-          // 还原状态
-          this.initPrevState()
-        }
-      }
-    }
-  },
+  // observers: {
+  //   lyric(newVal) {
+  //     console.log('newVal', newVal)
+  //     if (!newVal) {
+  //       this.setData({
+  //         lyricList: [{
+  //           time: 0,
+  //           lrc: '暂无歌词'
+  //         }],
+  //         highLightIndex: -1,
+  //       })
+  //     } else {
+  //       // 解析歌词
+  //       this._parseLyric(newVal)
+  //       if (this.properties.isSame) {  //同一首歌
+  //         // 还原状态
+  //         this.initPrevState()
+  //       }
+  //     }
+  //   }
+  // },
   /**
    * 组件的初始数据
    */
@@ -82,14 +103,16 @@ Component({
         if (time) {
           // 提取歌词
           const lrc = eleme.split(time[0])[1]
-          // 提取时间,分，秒，毫秒 [00:00:00]
-          const timeReg = time[0].match(/(\d{2,}):(\d{2})(?:.(\d{2,3}))?/)
-          // 时间转化成s
-          const time2Seconds = parseInt(timeReg[1]) * 60 + parseInt(timeReg[2]) + parseInt(timeReg[3]) / 1000
-          _lyricList.push({
-            time: time2Seconds,
-            lrc
-          })
+          if (lrc) {
+            // 提取时间,分，秒，毫秒 [00:00:00]
+            const timeReg = time[0].match(/(\d{2,}):(\d{2})(?:.(\d{2,3}))?/)
+            // 时间转化成s
+            const time2Seconds = parseInt(timeReg[1]) * 60 + parseInt(timeReg[2]) + parseInt(timeReg[3]) / 1000
+            _lyricList.push({
+              time: time2Seconds,
+              lrc
+            })
+          }
         }
       })
       this.setData({
@@ -99,6 +122,15 @@ Component({
     // 更新高亮的歌词和滚动的距离
     update(currentTime) {
       const lyricList = this.data.lyricList
+      if (lyricList.length === 0) {
+        // 没有歌词
+        // 不高亮歌词，歌词滚动到最底部
+        this.setData({
+          highLightIndex: - 1,
+          scrollTop: lyricList.length * lyricHeight
+        })
+        return
+      }
       // 歌曲最后面的时间没歌词
       if (currentTime > lyricList[lyricList.length - 1].time) {
         // 不高亮歌词，歌词滚动到最底部

@@ -194,6 +194,7 @@ Page({
       // 保存歌词到本地
       wx.setStorageSync('lyric', lrc)
     }).catch(err => {
+      console.log(res)
       this.setData({
         lyric: ''
       })

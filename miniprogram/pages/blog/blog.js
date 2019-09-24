@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    modalShow:false
   },
 
   /**
@@ -62,5 +62,44 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+  onPublish(){
+    // 判断用户是否授权
+    wx.getSetting({
+      success:(res)=>{
+        if (res.authSetting['scope.userInfo']){
+          // 已经授权获取用户信息
+          // 获取用户信息
+          wx.getUserInfo({
+            success:(info)=>{
+              const userInfo = info.userInfo
+              this.loginSuccess({
+                detail:{
+                  nickName: userInfo.nickName,
+                  avatarUrl: userInfo.avatarUrl
+                }
+              })
+            }
+          })
+        }else{
+          this.setData({
+            modalShow:true
+          })
+        }
+      }
+    })
+  },
+  loginFail(){
+    wx.showModal({
+      title: '授权用户才能发布'
+    })
+  },
+  loginSuccess(event){
+    const nickName = event.detail.nickName
+    const avatarUrl = event.detail.avatarUrl
+    wx.navigateTo({
+      url: `/pages/edit-blog/edit-blog?nickName=${nickName}&avatarUrl=${avatarUrl}`,
+    })
   }
 })

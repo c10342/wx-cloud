@@ -1,0 +1,38 @@
+.search{
+  height: 66rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+}
+
+.icon{
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translate(16rpx,-40%);
+  font-size: 40rpx;
+  color: #ccc;
+}
+.input{
+  flex: 1;
+  height: 100%;
+  border-radius: 50rpx;
+  border: 1px solid #ccc;
+  padding-left: 60rpx;
+  background-color: #eee;
+}
+.placeholder{
+  color: #ccc;
+  font-size: 26rpx;
+}
+.btn{
+  margin-left: 20rpx;
+  width: 150rpx;
+  height: 100%;
+  border-radius: 10rpx;
+  background-color: #d43c43;
+  font-size: 26rpx;
+  color: #fff;
+  text-align: center;
+}

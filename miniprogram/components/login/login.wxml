@@ -1,0 +1,8 @@
+<l-bottom-modal modalShow='{{modalShow}}' bind:closeModal='closeModal'>
+  <view slot='content'>
+    <button 
+    open-type="getUserInfo" 
+    bindgetuserinfo="bindGetUserInfo"
+    class="btn">登录授权</button>
+  </view>
+</l-bottom-modal>
