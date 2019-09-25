@@ -1,1 +1,80 @@
-/* pages/edit-blog/edit-blog.wxss */
+.content{
+  padding: 20rpx;
+  margin-bottom: 100rpx;
+}
+
+.textarea{
+  border: 1px solid #ccc;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 20rpx 30rpx;
+}
+
+.pic-content{
+  margin-top: 30rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.add-pic{
+  border: 1px dashed #ccc;
+  height: 280rpx;
+  width: 220rpx;
+  line-height: 280rpx;
+  text-align: center;
+  margin-right: 10rpx;
+}
+
+.pics{
+  height: 280rpx;
+  width: 220rpx;
+  margin-right: 12rpx;
+  position: relative;
+  margin-bottom: 12rpx;
+}
+
+.icon-shanchu1{
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: #fff;
+  padding: 10rpx;
+}
+
+.pics image{
+  width: 100%;
+  height: 100%;
+}
+
+.icon-jiahao{
+  font-size: 50rpx;
+}
+
+.footer{
+  position: fixed;
+  bottom: 0;
+  background-color: #e3e3e3;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100rpx;
+  transition: all 0.5s linear;
+}
+
+.words-num{
+  font-size: 36rpx;
+  color: #030303;
+}
+
+.btn-publish{
+  background-color: #d43c43;
+  color: #fff;
+  width: 160rpx;
+  height: 70rpx;
+  margin: 0 20rpx;
+  line-height: 70rpx;
+}

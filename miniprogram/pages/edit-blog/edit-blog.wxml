@@ -1,2 +1,19 @@
-<!--pages/edit-blog/edit-blog.wxml-->
-<text>pages/edit-blog/edit-blog.wxml</text>
+<view class="content">
+  <textarea auto-focus="true" bindblur="onBlur" bindfocus="onFocus" bindinput="onInput" class="textarea" placeholder="请输入内容..." maxlength="50"></textarea>
+  <view class="pic-content">
+    <block wx:for='{{images}}' wx:key='*this'>
+      <view class="pics">
+        <image data-imgurl='{{item}}' src="{{item}}" mode="aspectFill" bindtap="onPrevviewImage"></image>
+        <i class='icon-shanchu1 iconfont' data-index='{{index}}' bindtap='onDeleteImage'></i>
+      </view>
+    </block>
+    <view class="add-pic" bindtap="onChooseImages" hidden="{{images.length==9}}">
+      <text class="icon-jiahao iconfont"></text>
+    </view>
+  </view>
+</view>
+
+<view class="footer" style="bottom:{{bottom}}px">
+  <text class="words-num">{{wordsNum}}</text>
+  <button class="btn-publish" bindtap="send">发布</button>
+</view>

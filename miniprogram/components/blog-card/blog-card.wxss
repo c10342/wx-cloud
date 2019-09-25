@@ -1,0 +1,47 @@
+.blog-card-content{
+  background-color: #fff;
+  margin-top: 20rpx;
+  padding: 30rpx;
+}
+
+.title{
+  display: flex;
+  flex-direction: row;
+}
+
+.avator{
+  width: 90rpx;
+  height: 90rpx;
+  border-radius: 50%;
+}
+
+.user-info{
+  margin-left: 20rpx;
+}
+
+.user-name{
+  font-size: 34rpx;
+}
+
+.content{
+  margin: 10rpx 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 36rpx;
+}
+.time{
+  font-size: 28rpx;
+  color: #ccc;
+}
+
+.image{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.image image{
+  width: 200rpx;
+  height: 200rpx;
+  margin-right: 20rpx;
+}

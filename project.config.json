@@ -43,7 +43,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 3,
+			"current": 4,
 			"list": [
 				{
 					"id": -1,
@@ -70,6 +70,13 @@
 					"name": "blog",
 					"pathName": "pages/blog/blog",
 					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "edit-blog",
+					"pathName": "pages/edit-blog/edit-blog",
+					"query": "nickName=\"嗨起来\"& avatarUrl= \"https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKGsDDwk…GaRqgsl5rfMNgFRb0QVuibBTsqu6vfjibYq63c235Nr3g/132\"",
 					"scene": null
 				}
 			]

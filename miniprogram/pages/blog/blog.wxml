@@ -1,12 +1,15 @@
-<view>
-  <view class="search">
-    <view class="publish" bindtap="onPublish">
-      <i class='iconfont icon-fabu'></i>
-    </view>
-    <view class="search-box">
-      <l-search iconfont='iconfont' icon-sousuo='icon-sousuo' />
-    </view>
+<view class="search">
+  <view class="publish" bindtap="onPublish">
+    <i class='iconfont icon-fabu'></i>
   </view>
-  <l-login modalShow='{{modalShow}}' bind:loginSuccess='loginSuccess' bind:loginFail='loginFail'>
-  </l-login>
+  <view class="search-box">
+    <l-search iconfont='iconfont' icon-sousuo='icon-sousuo' />
+  </view>
 </view>
+<view class="blog-list"> 
+  <block wx:for='{{blogList}}' wx:key='{{index}}'>
+    <l-blog-card blog='{{item}}' bindtap='gotoBlogComment' data-id='{{item._id}}' />
+  </block>
+</view>
+<l-login modalShow='{{modalShow}}' bind:loginSuccess='loginSuccess' bind:loginFail='loginFail'>
+</l-login>

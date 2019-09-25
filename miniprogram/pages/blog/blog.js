@@ -1,18 +1,20 @@
-// miniprogram/pages/blog/blog.js
+// const db = wx.cloud.database()
+let count = 4
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    modalShow:false
+    modalShow:false,
+    blogList:[]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.getBlogList()
   },
 
   /**
@@ -47,14 +49,14 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    this.getBlogList(0)
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    this.getBlogList(this.data.blogList.length)
   },
 
   /**
@@ -100,6 +102,37 @@ Page({
     const avatarUrl = event.detail.avatarUrl
     wx.navigateTo({
       url: `/pages/edit-blog/edit-blog?nickName=${nickName}&avatarUrl=${avatarUrl}`,
+    })
+  },
+  getBlogList(start=0){
+    wx.showLoading({
+      title: '查询中',
+    })
+    wx.cloud.callFunction({
+      name:'blog',
+      data:{
+        $url:'bloglist',
+        count,
+        start
+      }
+    }).then(res=>{
+      this.setData({
+        blogList:this.data.blogList.concat(res.result)
+      })
+    }).catch(()=>{
+      wx.showToast({
+        title: '获取博客列表失败',
+        icon:'none'
+      })
+    }).finally(()=>{
+      wx.hideLoading()
+      wx.stopPullDownRefresh()
+    })
+  },
+  gotoBlogComment(event){
+    const id = event.target.dataset.id
+    wx.navigateTo({
+      url: `/pages/blog-comment/blog-comment?blogId=${id}`,
     })
   }
 })

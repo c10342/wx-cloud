@@ -5,7 +5,8 @@
     "pages/profile/profile",
     "pages/musiclist/musiclist",
     "pages/player/player",
-    "pages/edit-blog/edit-blog"
+    "pages/edit-blog/edit-blog",
+    "pages/blog-comment/blog-comment"
   ],
   "requiredBackgroundModes": [
     "audio"

@@ -1,7 +1,9 @@
 {
   "usingComponents": {
     "l-search":"/components/search/search",
-    "l-login":"/components/login/login"
+    "l-login":"/components/login/login",
+    "l-blog-card":"/components/blog-card/blog-card"
   },
-  "navigationBarTitleText": "发现"
+  "navigationBarTitleText": "发现",
+  "enablePullDownRefresh": true
 }
