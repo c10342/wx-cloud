@@ -1,5 +1,5 @@
 .bottom-modal{
-  height: 300rpx;
+  min-height: 300rpx;
   position: fixed;
   bottom: 0;
   left: 0;

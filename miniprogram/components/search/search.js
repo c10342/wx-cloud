@@ -1,4 +1,5 @@
 // components/search/search.js
+let input = ''
 Component({
   /**
    * 组件的属性列表
@@ -19,6 +20,11 @@ Component({
    * 组件的方法列表
    */
   methods: {
-
+    onInput(event){
+      input = event.detail.value.trim()
+    },
+    onSearch(){
+      this.triggerEvent('click',{input})
+    }
   }
 })

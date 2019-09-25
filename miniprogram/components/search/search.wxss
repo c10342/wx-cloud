@@ -21,6 +21,7 @@
   border: 1px solid #ccc;
   padding-left: 60rpx;
   background-color: #eee;
+  font-size: 30rpx;
 }
 .placeholder{
   color: #ccc;

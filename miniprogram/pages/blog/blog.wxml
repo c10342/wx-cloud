@@ -3,12 +3,13 @@
     <i class='iconfont icon-fabu'></i>
   </view>
   <view class="search-box">
-    <l-search iconfont='iconfont' icon-sousuo='icon-sousuo' />
+    <l-search bind:click='doSearch' iconfont='iconfont' icon-sousuo='icon-sousuo' />
   </view>
 </view>
 <view class="blog-list"> 
   <block wx:for='{{blogList}}' wx:key='{{index}}'>
     <l-blog-card blog='{{item}}' bindtap='gotoBlogComment' data-id='{{item._id}}' />
+    <l-blog-ctrl />
   </block>
 </view>
 <l-login modalShow='{{modalShow}}' bind:loginSuccess='loginSuccess' bind:loginFail='loginFail'>

@@ -183,16 +183,21 @@ Page({
         })
         // 返回上一级页面
         wx.navigateBack()
+        const pages = getCurrentPages()
+        const prevPages = pages[0]
+        prevPages.onPullDownRefresh()
       }).catch(() => {
         wx.hideLoading()
         wx.showToast({
           title: '发布失败',
+          icon:'none'
         })
       })
     }).catch(() => {
       wx.hideLoading()
       wx.showToast({
         title: '发布失败',
+        icon: 'none'
       })
     })
   }

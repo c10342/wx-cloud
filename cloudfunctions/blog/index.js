@@ -15,9 +15,21 @@ exports.main = async (event, context) => {
   const app = new TcbRouter({ event })
 
   app.router('bloglist', async (ctx) => {
+    let w = {}
+    if (event.keyWord) {
+      // 模糊查询
+      w = {
+        content: db.RegExp({
+          regexp: event.keyWord,
+          options: 'i'
+        })
+      }
+    }
     ctx.body = await blogCollection
+      .where(w)
       .skip(event.start)
       .limit(event.count)
+      .orderBy('createTime', 'desc')
       .get()
       .then(res => {
         return res.data

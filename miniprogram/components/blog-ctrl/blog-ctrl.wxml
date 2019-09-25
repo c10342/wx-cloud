@@ -1,0 +1,12 @@
+<view class="blog-ctrl">
+  <text bindtap="onComment">评论</text>
+  <text>分享</text>
+</view>
+<l-login bind:loginSuccess='loginSuccess' bind:loginFail='loginFail' modalShow='{{loginShow}}' />
+
+<l-bottom-modal modalShow='{{modalShow}}' bind:closeModal='closeModal'>
+  <view class="publish" slot='content'>
+    <textarea class="publish-textarea" placeholder="请输入内容"></textarea>
+    <button class="publish-btn">发布</button>
+  </view>
+</l-bottom-modal>

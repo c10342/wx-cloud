@@ -1,13 +1,14 @@
 // const db = wx.cloud.database()
-let count = 4
+let count = 10
+let input = ''
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    modalShow:false,
-    blogList:[]
+    modalShow: false,
+    blogList: []
   },
 
   /**
@@ -66,73 +67,85 @@ Page({
 
   },
 
-  onPublish(){
+  onPublish() {
     // 判断用户是否授权
     wx.getSetting({
-      success:(res)=>{
-        if (res.authSetting['scope.userInfo']){
+      success: (res) => {
+        if (res.authSetting['scope.userInfo']) {
           // 已经授权获取用户信息
           // 获取用户信息
           wx.getUserInfo({
-            success:(info)=>{
+            success: (info) => {
               const userInfo = info.userInfo
               this.loginSuccess({
-                detail:{
+                detail: {
                   nickName: userInfo.nickName,
                   avatarUrl: userInfo.avatarUrl
                 }
               })
             }
           })
-        }else{
+        } else {
           this.setData({
-            modalShow:true
+            modalShow: true
           })
         }
       }
     })
   },
-  loginFail(){
+  loginFail() {
     wx.showModal({
       title: '授权用户才能发布'
     })
   },
-  loginSuccess(event){
+  loginSuccess(event) {
     const nickName = event.detail.nickName
     const avatarUrl = event.detail.avatarUrl
     wx.navigateTo({
       url: `/pages/edit-blog/edit-blog?nickName=${nickName}&avatarUrl=${avatarUrl}`,
     })
   },
-  getBlogList(start=0){
+  getBlogList(start = 0) {
     wx.showLoading({
       title: '查询中',
     })
     wx.cloud.callFunction({
-      name:'blog',
-      data:{
-        $url:'bloglist',
+      name: 'blog',
+      data: {
+        $url: 'bloglist',
         count,
-        start
+        start,
+        keyWord:input
       }
-    }).then(res=>{
-      this.setData({
-        blogList:this.data.blogList.concat(res.result)
-      })
-    }).catch(()=>{
+    }).then(res => {
+      if (start == 0) {
+        this.setData({
+          blogList: res.result
+        })
+      } else {
+        this.setData({
+          blogList: this.data.blogList.concat(res.result)
+        })
+      }
+
+    }).catch(() => {
       wx.showToast({
         title: '获取博客列表失败',
-        icon:'none'
+        icon: 'none'
       })
-    }).finally(()=>{
+    }).finally(() => {
       wx.hideLoading()
       wx.stopPullDownRefresh()
     })
   },
-  gotoBlogComment(event){
+  gotoBlogComment(event) {
     const id = event.target.dataset.id
     wx.navigateTo({
       url: `/pages/blog-comment/blog-comment?blogId=${id}`,
     })
+  },
+  doSearch(event){
+    input = event.detail.input
+    this.getBlogList(0)
   }
 })

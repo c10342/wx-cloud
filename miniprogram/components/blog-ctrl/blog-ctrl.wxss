@@ -1,0 +1,44 @@
+.blog-ctrl{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  background-color: #fff;
+  align-items: center;
+  border-top: 1px solid #ccc;
+}
+
+.blog-ctrl text{
+  font-size: 30rpx;
+  line-height: 80rpx;
+  width: 50%;
+  text-align: center;
+}
+
+.blog-ctrl text+text{
+  border-left: 1px solid #ccc;
+}
+
+.publish-textarea{
+  padding: 0 20rpx;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.publish{
+  position: relative;
+  padding: 10rpx;
+  box-sizing: border-box;
+}
+
+.publish-btn{
+  position: absolute;
+  bottom: 20rpx;
+  right: 20rpx;
+  font-size: 30rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  width: 150rpx;
+  background-color: #d43c43;
+  color: #fff;
+}

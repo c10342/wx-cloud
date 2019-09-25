@@ -1,5 +1,5 @@
 <view class='search'>
-<i class='icon-sousuo iconfont icon'></i>
-<input class="input" placeholder="请输入" placeholder-class="placeholder"></input>
-<button class="btn">搜索</button>
+  <i class='icon-sousuo iconfont icon'></i>
+  <input bindinput="onInput" class="input" placeholder="请输入" placeholder-class="placeholder"></input>
+  <button bindtap="onSearch" class="btn">搜索</button>
 </view>
