@@ -14,21 +14,28 @@
   text-align: center;
 }
 
-.blog-ctrl text+text{
-  border-left: 1px solid #ccc;
+.blog-ctrl text{
+  border-right: 1px solid #ccc;
+}
+
+.blog-ctrl button{
+  background-color: #fff;
+  width: 50%;
+  border: none;
 }
 
 .publish-textarea{
   padding: 0 20rpx;
-  border: 1px solid #ccc;
   box-sizing: border-box;
   width: 100%;
+  margin-bottom: 80rpx;
+  background-color: #fff;
 }
 
 .publish{
-  position: relative;
   padding: 10rpx;
   box-sizing: border-box;
+  width: 100%;
 }
 
 .publish-btn{
@@ -41,4 +48,5 @@
   width: 150rpx;
   background-color: #d43c43;
   color: #fff;
+  z-index: 99;
 }

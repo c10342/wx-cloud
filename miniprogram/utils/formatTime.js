@@ -2,7 +2,12 @@
 
 
 export function formatTime(date) {
-  const d = new Date(date)
+  let d = null
+  if (date){
+    d = new Date(date)
+  }else{
+    d = new Date()
+  }
   let y = d.getFullYear()
   let m = d.getMonth()+1
   let _d = d.getDate()

@@ -16,7 +16,8 @@ Page({
   data: {
     wordsNum: 0,
     bottom: 0,
-    images: []
+    images: [],
+    showConfirmBar:false
   },
 
   /**

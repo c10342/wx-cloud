@@ -1,10 +1,14 @@
 // components/blog-ctrl/blog-ctrl.js
+import { formatTime } from '../../utils/formatTime.js'
+let userInfo = null
+const db = wx.cloud.database()
 Component({
   /**
    * 组件的属性列表
    */
   properties: {
-
+    blogId: String,
+    blog:Object
   },
 
   /**
@@ -12,7 +16,9 @@ Component({
    */
   data: {
     loginShow: false,
-    modalShow:false
+    modalShow: false,
+    value:'',
+    showConfirmBar:false
   },
 
   /**
@@ -25,9 +31,9 @@ Component({
           if (res.authSetting['scope.userInfo']) {
             wx.getUserInfo({
               success: (info) => {
-                // const userInfo = info.userInfo
+                userInfo = info.userInfo
                 this.setData({
-                  modalShow:true
+                  modalShow: true
                 })
               }
             })
@@ -39,20 +45,84 @@ Component({
         }
       })
     },
-    loginSuccess(){
+    loginSuccess(event) {
+      userInfo = event.detail.userInfo
       this.setData({
-        loginShow:false,
-        modalShow:true
+        loginShow: false,
+        modalShow: true
       })
     },
-    loginFail(){
+    loginFail() {
       wx.showModal({
         title: '授权用户才能发表评论'
       })
     },
-    closeModal(){
+    closeModal() {
       this.setData({
-        modalShow:false
+        modalShow: false
+      })
+    },
+    // 发表评论
+    onPublish(event) {
+      let content = event.detail.value.textarea
+      if (!content.trim()) {
+        wx.showModal({
+          title: '评论给内容不能为空'
+        })
+        return
+      }
+      const formId = event.detail.formId
+      wx.showLoading({
+        title: '发布中',
+      })
+      db.collection('blog-comment').add({
+        data: {
+          content,
+          blogId: this.properties.blogId,
+          createTime: db.serverDate(),
+          nickName: userInfo.nickName,
+          avatarUrl: userInfo.avatarUrl
+        }
+      }).then(() => {
+        wx.cloud.callFunction({
+          name: 'messageSend',
+          data: {
+            blogId: this.properties.blogId,
+            formId,
+            content,
+            time: formatTime()
+          }
+        }).then((res) => {
+          this.setData({
+            modalShow: false,
+            value:''
+          }, () => {
+            wx.showToast({
+              title: '发布成功',
+            })
+            this.triggerEvent('commentSuccess')
+          })
+
+        }).catch(() => {
+          wx.showToast({
+            title: '发布失败',
+            icon: 'none'
+          })
+        }).finally(() => {
+          wx.hideLoading()
+        })
+      }).catch((err) => {
+        console.log(err)
+        wx.hideLoading()
+        wx.showToast({
+          title: '发布失败',
+          icon: 'none'
+        })
+      })
+    },
+    onInput(event){
+      this.setData({
+        value:event.detail.value
       })
     }
   }

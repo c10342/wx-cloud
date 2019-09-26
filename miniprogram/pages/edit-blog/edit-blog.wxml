@@ -1,5 +1,5 @@
 <view class="content">
-  <textarea auto-focus="true" bindblur="onBlur" bindfocus="onFocus" bindinput="onInput" class="textarea" placeholder="请输入内容..." maxlength="50"></textarea>
+  <textarea  show-confirm-bar='{{showConfirmBar}}' auto-focus="true" bindblur="onBlur" bindfocus="onFocus" bindinput="onInput" class="textarea" placeholder="请输入内容..." maxlength="50"></textarea>
   <view class="pic-content">
     <block wx:for='{{images}}' wx:key='*this'>
       <view class="pics">

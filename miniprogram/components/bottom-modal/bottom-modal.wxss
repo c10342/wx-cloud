@@ -8,6 +8,7 @@
   box-sizing: border-box;
   z-index: 100;
   background-color: #fff;
+  transition: all 0.5s linear;
 }
 .mask{
   position: fixed;

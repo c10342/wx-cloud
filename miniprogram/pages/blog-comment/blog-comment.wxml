@@ -1,2 +1,16 @@
-<!--pages/blog-comment/blog-comment.wxml-->
-<text>pages/blog-comment/blog-comment.wxml</text>
+<scroll-view class="scroll-view" scroll-y='true'>
+  <l-blog-card blog='{{commentDetail}}'></l-blog-card>
+
+  <view class="comment-list">
+    <view class="title">
+      评论列表
+    </view>
+    <block wx:for='{{commentList}}' wx:key='{{index}}'>
+      <l-blog-card blog='{{item}}'></l-blog-card>
+    </block>
+  </view>
+</scroll-view>
+
+<view class="blog-ctrl">
+ <l-blog-ctrl blog='{{commentDetail}}' blogId='{{blogId}}' bind:commentSuccess='_getCommentDetail' />
+</view>

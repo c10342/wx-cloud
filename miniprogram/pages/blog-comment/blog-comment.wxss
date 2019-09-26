@@ -1,1 +1,22 @@
-/* pages/blog-comment/blog-comment.wxss */
+page{
+  height: 100%;
+}
+.scroll-view{
+  height: 100%;
+  box-sizing: border-box;
+  padding-bottom: 80rpx;
+}
+
+.comment-list{
+  margin-top: 20rpx;
+}
+.title{
+  padding-left: 20rpx;
+}
+
+.blog-ctrl{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}

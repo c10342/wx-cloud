@@ -63,8 +63,16 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-
+  onShareAppMessage: function (event) {
+    if (event.from == 'button'){
+      const ds = event.target.dataset.blog
+      const content = ds.content
+      const blogId = ds._id
+      return {
+        title:content,
+        path: `/pages/blog-comment/blog-comment?blogId=${blogId}`
+      }
+    }
   },
 
   onPublish() {
