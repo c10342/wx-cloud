@@ -1,2 +1,20 @@
-<!--miniprogram/pages/profile/profile.wxml-->
-<text>miniprogram/pages/profile/profile.wxml</text>
+<view class="user-info">
+  <open-data type='userAvatarUrl' class='user-avatar'></open-data>
+  <open-data type='userNickName' class='user-nickName'></open-data>
+</view>
+
+<view class="nav-content">
+  <view class="nav-item">
+  <navigator hover-class="none" url="/pages/profile-playhistory/profile-playhistory">
+    <text>最近播放</text>
+  </navigator>
+  </view>
+  <view class="nav-item">
+  <navigator hover-class="none" url="/pages/profile-bloghistory/profile-bloghistory">
+    <text>我的发现</text>
+  </navigator>
+  </view>
+  <view class="nav-item" bindtap="getQrCode">
+    <text>小程序码</text>
+  </view>
+</view>

@@ -1,0 +1,4 @@
+<block wx:for='{{blogList}}' wx:key='{{index}}'>
+  <l-blog-card blog='{{item}}' bindtap='gotoBlogComment' data-id='{{item._id}}' />
+  <l-blog-ctrl blogId='{{item._id}}' blog='{{item}}' />
+</block>

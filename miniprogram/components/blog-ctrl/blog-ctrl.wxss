@@ -24,6 +24,10 @@
   border: none;
 }
 
+.blog-ctrl button::after{
+  border: none;
+}
+
 .publish-textarea{
   padding: 0 20rpx;
   box-sizing: border-box;

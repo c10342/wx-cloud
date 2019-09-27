@@ -20,11 +20,35 @@ App({
     this.globalData = {
       playingMusicId: -1
     }
+    this.checkUpdate()
   },
   setPlayingMusicId(musicId) {
     this.globalData.playingMusicId = musicId
   },
   getPlayingMusicId() {
     return this.globalData.playingMusicId
+  },
+  checkUpdate() {
+    // 获取全局唯一的版本更新管理器，用于管理小程序更新
+    const updateManager = wx.getUpdateManager()
+    // 监听向微信后台请求检查更新结果事件
+    // 即检查是否需要更新
+    updateManager.onCheckForUpdate(res => {
+      if (res.hasUpdate) {
+        // 监听小程序有版本更新事件。客户端主动触发下载（无需开发者触发），下载成功后回调
+        updateManager.onUpdateReady(function () {
+          wx.showModal({
+            title: '更新提示',
+            content: '新版本已经准备好，是否重启应用？',
+            success: function (result) {
+              if (result.confirm) {
+                // 新的版本已经下载好，调用 applyUpdate 应用新版本并重启
+                updateManager.applyUpdate()
+              }
+            }
+          })
+        })
+      }
+    })
   }
 })

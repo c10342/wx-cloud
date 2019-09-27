@@ -1,18 +1,28 @@
-// miniprogram/pages/profile/profile.js
+// pages/profile-playhistory/profile-playhistory.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    musicListHistory:[]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    const musicListHistory = wx.getStorageSync('musicListHistory') || []
+    if(musicListHistory.length == 0){
+      wx.showModal({
+        title: '暂无播放歌曲'
+      })
+      return
+    }
+    this.setData({
+      musicListHistory
+    })
+    wx.setStorageSync('musiclist', musicListHistory)
   },
 
   /**
@@ -62,27 +72,5 @@ Page({
    */
   onShareAppMessage: function () {
 
-  },
-
-  getQrCode(){
-    wx.showLoading({
-      title: '正在生成'
-    })
-    wx.cloud.callFunction({
-      name:'getQrCode'
-    }).then(res=>{
-      const url = res.result
-      wx.previewImage({
-        urls: [url],
-        current:url
-      })
-    }).catch(()=>{
-      wx.showToast({
-        title: '生成失败',
-        icon:'none'
-      })
-    }).finally(()=>{
-      wx.hideLoading()
-    })
   }
 })

@@ -136,6 +136,7 @@ Page({
       // 保存图片地址和音乐索引到本地
       wx.setStorageSync('picUrl', coverImgUrl)
       wx.setStorageSync('currentIndex', currentIndex)
+      this.saveMusic(music)
       // 获取歌词
       this.getLyric(musicId)
     }).catch(err => {
@@ -236,5 +237,17 @@ Page({
       isShowLyric: isShowLyric,
       isSame: true
     })
+  },
+  saveMusic(music){
+    let musicHistory = wx.getStorageSync('musicListHistory')
+    if(!musicHistory){
+      musicHistory = []
+    }
+    const index = musicHistory.findIndex(item=>item.id == music.id)
+    if(index >= 0){
+      musicHistory.splice(index,1)
+    }
+    musicHistory.unshift(music)
+    wx.setStorageSync('musicListHistory', musicHistory)
   }
 })

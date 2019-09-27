@@ -9,7 +9,8 @@
 		"minified": true,
 		"newFeature": true,
 		"coverView": true,
-		"autoAudits": false,
+		"nodeModules": true,
+		"autoAudits": true,
 		"checkInvalidKey": true,
 		"checkSiteMap": true,
 		"uploadWithSourceMap": true,
@@ -17,8 +18,7 @@
 			"ignore": [],
 			"disablePlugins": [],
 			"outputPath": ""
-		},
-		"nodeModules": true
+		}
 	},
 	"appid": "wxfd42849555bd7a4d",
 	"projectname": "lin-music",
@@ -43,7 +43,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 5,
+			"current": 8,
 			"list": [
 				{
 					"id": -1,
@@ -84,6 +84,27 @@
 					"name": "blog-comment",
 					"pathName": "pages/blog-comment/blog-comment",
 					"query": "blogId= \"1af3506e5d8b7fe7049bc1a51243eda3\"",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "profile",
+					"pathName": "pages/profile/profile",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "profile-bloghistory",
+					"pathName": "pages/profile-bloghistory/profile-bloghistory",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 8,
+					"name": "playlist",
+					"pathName": "pages/playlist/playlist",
+					"query": "",
 					"scene": null
 				}
 			]

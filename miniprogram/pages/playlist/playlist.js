@@ -28,6 +28,8 @@ Page({
    */
   onLoad: function (options) {
     this._getPlaylist()
+    // 用户扫描二维码进来小程序会携带该参数
+    console.log(options.scene)
   },
 
   /**
